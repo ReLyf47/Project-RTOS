@@ -232,50 +232,37 @@ void lockSystem(SecurityState *state, uint32_t duration_ms) {
  * @brief Give success feedback (green LED + beep)
  */
 void feedbackSuccess() {
-    // Green LED pulse
     digitalWrite(GREEN_LED, HIGH);
-    delay(LED_SUCCESS_PULSE);
+    vTaskDelay(pdMS_TO_TICKS(LED_SUCCESS_PULSE));
     digitalWrite(GREEN_LED, LOW);
 
-    // Buzzer beep (success pattern: single beep)
-    digitalWrite(BUZZER_PIN, HIGH);
-    delay(BUZZER_SUCCESS_MS);
-    digitalWrite(BUZZER_PIN, LOW);
+    tone(BUZZER_PIN, 1000);
+    vTaskDelay(pdMS_TO_TICKS(BUZZER_SUCCESS_MS));
+    noTone(BUZZER_PIN);
 }
 
-/**
- * @brief Give failure feedback (red LED + error beep)
- */
 void feedbackFailure() {
-    // Red LED pulse
     digitalWrite(RED_LED, HIGH);
-    delay(LED_FAIL_PULSE);
+    vTaskDelay(pdMS_TO_TICKS(LED_FAIL_PULSE));
     digitalWrite(RED_LED, LOW);
 
-    // Buzzer error (fail pattern: double beep)
-    digitalWrite(BUZZER_PIN, HIGH);
-    delay(BUZZER_FAIL_MS / 2);
-    digitalWrite(BUZZER_PIN, LOW);
-    delay(BUZZER_FAIL_MS / 4);
-    digitalWrite(BUZZER_PIN, HIGH);
-    delay(BUZZER_FAIL_MS / 2);
-    digitalWrite(BUZZER_PIN, LOW);
+    tone(BUZZER_PIN, 400);
+    vTaskDelay(pdMS_TO_TICKS(150));
+    noTone(BUZZER_PIN);
+    vTaskDelay(pdMS_TO_TICKS(100));
+    tone(BUZZER_PIN, 400);
+    vTaskDelay(pdMS_TO_TICKS(150));
+    noTone(BUZZER_PIN);
 }
 
-/**
- * @brief Lock system feedback (red LED pulse + long beep)
- */
 void feedbackLockout() {
-    // Red LED rapid pulse (lockout alert)
     for (int i = 0; i < 3; i++) {
         digitalWrite(RED_LED, HIGH);
-        delay(100);
+        vTaskDelay(pdMS_TO_TICKS(100));
         digitalWrite(RED_LED, LOW);
-        delay(100);
+        vTaskDelay(pdMS_TO_TICKS(100));
     }
-
-    // Buzzer long beep
-    digitalWrite(BUZZER_PIN, HIGH);
-    delay(500);
-    digitalWrite(BUZZER_PIN, LOW);
+    tone(BUZZER_PIN, 300);
+    vTaskDelay(pdMS_TO_TICKS(500));
+    noTone(BUZZER_PIN);
 }

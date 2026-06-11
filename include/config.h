@@ -4,22 +4,22 @@
 #include <stdint.h>
 
 // ============ WIFI CONFIGURATION ============
-#define WIFI_SSID           "PLACEHOLDER"         // TODO: Update
-#define WIFI_PASSWORD       "PLACEHOLDER"      // TODO: Update
+#define WIFI_SSID           "Jane Wifi"         // TODO: Update
+#define WIFI_PASSWORD       "jane116frozen"      // TODO: Update
 #define WIFI_TIMEOUT_MS     10000
 
 // ============ XAMPP SERVER CONFIGURATION ============
 // Set this to your PC's local IP address (check via ipconfig / ifconfig)
-#define XAMPP_SERVER_IP     "192.168.1.100"   // TODO: Update to your PC's IP
+#define XAMPP_SERVER_IP     "192.168.101.74"   // TODO: Update to your PC's IP
 #define XAMPP_SERVER_PORT   80
-#define XAMPP_BASE_URL      "http://192.168.1.100/rfid"
+#define XAMPP_BASE_URL      "http://192.168.101.74/rfid"
 
 // ============ GPIO PIN DEFINITIONS ============
 #define BUZZER_PIN          14
-#define GREEN_LED           26
-#define RED_LED             25
+#define GREEN_LED           25
+#define RED_LED             26
 #define RELAY_PIN           27
-#define RFID_INT_PIN        4
+#define RFID_INT_PIN        13
 
 // ============ I2C LCD CONFIGURATION ============
 #define LCD_ADDR            0x27

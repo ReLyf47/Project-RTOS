@@ -62,12 +62,14 @@ void setupHardware() {
     pinMode(GREEN_LED,  OUTPUT);
     pinMode(RED_LED,    OUTPUT);
     pinMode(RELAY_PIN,  OUTPUT);
-    pinMode(RFID_INT_PIN, INPUT);
+    //pinMode(RFID_INT_PIN, INPUT);
 
     digitalWrite(BUZZER_PIN, LOW);
     digitalWrite(GREEN_LED,  LOW);
     digitalWrite(RED_LED,    LOW);
     digitalWrite(RELAY_PIN,  LOW);
+    ledcAttachPin(BUZZER_PIN, 0);  // pin, channel
+    ledcSetup(0, 1000, 8);         // channel, freq, resolution
 
     Wire.begin(21, 22);   // SDA=21, SCL=22
     Serial.println("[BOOT] Hardware initialized");
