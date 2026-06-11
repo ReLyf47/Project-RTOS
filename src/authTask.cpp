@@ -40,6 +40,8 @@ void vAuthTask(void *pvParameters) {
 
             // Lockout dicek paling awal supaya kartu apa pun ditolak tanpa HTTP.
             // Ini mengurangi traffic server saat ada percobaan spoofing beruntun.
+            TickType_t start = xTaskGetTickCount();
+            // Reject scans while system is locked out
             if (isSystemLocked(&securityState)) {
                 feedbackLockout();
 
@@ -87,8 +89,9 @@ void vAuthTask(void *pvParameters) {
                 strcpy(eventLog.message, "Server unreachable");
                 xQueueSend(eventLogQueue, &eventLog, pdMS_TO_TICKS(10));
 
+                TickType_t end = xTaskGetTickCount();
                 xSemaphoreTake(serialMutex, pdMS_TO_TICKS(100));
-                Serial.println("[Auth] ERROR: Cannot reach XAMPP server");
+                Serial.printf("[Auth] Execution time: %lu ms\n", (end - start) * portTICK_PERIOD_MS);
                 xSemaphoreGive(serialMutex);
 
                 vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(AUTH_TASK_PERIOD));

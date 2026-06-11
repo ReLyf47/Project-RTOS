@@ -253,13 +253,16 @@ void lockSystem(SecurityState *state, uint32_t duration_ms) {
 void feedbackSuccess() {
     // Green LED pulse.
     digitalWrite(GREEN_LED, HIGH);
-    delay(LED_SUCCESS_PULSE);
+    vTaskDelay(pdMS_TO_TICKS(LED_SUCCESS_PULSE));
     digitalWrite(GREEN_LED, LOW);
 
     // Buzzer beep: pola sukses satu beep.
     digitalWrite(BUZZER_PIN, HIGH);
     delay(BUZZER_SUCCESS_MS);
     digitalWrite(BUZZER_PIN, LOW);
+    tone(BUZZER_PIN, 1000);
+    vTaskDelay(pdMS_TO_TICKS(BUZZER_SUCCESS_MS));
+    noTone(BUZZER_PIN);
 }
 
 /**
@@ -268,7 +271,7 @@ void feedbackSuccess() {
 void feedbackFailure() {
     // Red LED pulse.
     digitalWrite(RED_LED, HIGH);
-    delay(LED_FAIL_PULSE);
+    vTaskDelay(pdMS_TO_TICKS(LED_FAIL_PULSE));
     digitalWrite(RED_LED, LOW);
 
     // Buzzer error: pola gagal dua beep.
@@ -279,6 +282,13 @@ void feedbackFailure() {
     digitalWrite(BUZZER_PIN, HIGH);
     delay(BUZZER_FAIL_MS / 2);
     digitalWrite(BUZZER_PIN, LOW);
+    tone(BUZZER_PIN, 400);
+    vTaskDelay(pdMS_TO_TICKS(150));
+    noTone(BUZZER_PIN);
+    vTaskDelay(pdMS_TO_TICKS(100));
+    tone(BUZZER_PIN, 400);
+    vTaskDelay(pdMS_TO_TICKS(150));
+    noTone(BUZZER_PIN);
 }
 
 /**
@@ -288,13 +298,16 @@ void feedbackLockout() {
     // Red LED rapid pulse sebagai alert lockout.
     for (int i = 0; i < 3; i++) {
         digitalWrite(RED_LED, HIGH);
-        delay(100);
+        vTaskDelay(pdMS_TO_TICKS(100));
         digitalWrite(RED_LED, LOW);
-        delay(100);
+        vTaskDelay(pdMS_TO_TICKS(100));
     }
 
     // Buzzer long beep untuk membedakan lockout dari denied biasa.
     digitalWrite(BUZZER_PIN, HIGH);
     delay(500);
     digitalWrite(BUZZER_PIN, LOW);
+    tone(BUZZER_PIN, 300);
+    vTaskDelay(pdMS_TO_TICKS(500));
+    noTone(BUZZER_PIN);
 }

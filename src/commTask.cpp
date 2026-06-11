@@ -20,7 +20,10 @@ void vCommTask(void *pvParameters) {
     while (1) {
         // WiFi health check. Jika koneksi putus, reconnect dilakukan di task ini
         // agar task autentikasi tidak harus mengurus state jaringan global.
+        TickType_t start = xTaskGetTickCount();
+        // ── WiFi health check ─────────────────────────────────────────────
         if (!isWiFiConnected()) {
+            TickType_t end = xTaskGetTickCount();
             xSemaphoreTake(serialMutex, pdMS_TO_TICKS(100));
             Serial.println("[Comm] WiFi lost — reconnecting...");
             xSemaphoreGive(serialMutex);

@@ -17,13 +17,13 @@
 // ESP32 dan PC XAMPP harus berada di jaringan yang sama.
 #define XAMPP_SERVER_IP     "192.168.1.100"   // TODO: Update to your PC's IP
 #define XAMPP_SERVER_PORT   80
-#define XAMPP_BASE_URL      "http://192.168.1.100/rfid"
+#define XAMPP_BASE_URL      "http://10.46.30.245/rfid"
 
 // ============ GPIO PIN DEFINITIONS ============
 // Output aktuator/indikator. RELAY_PIN disiapkan untuk door lock/solenoid.
 #define BUZZER_PIN          14
-#define GREEN_LED           26
-#define RED_LED             25
+#define GREEN_LED           25
+#define RED_LED             26
 #define RELAY_PIN           27
 
 // Input interrupt dari modul RFID; dipakai attachInterrupt(..., FALLING).

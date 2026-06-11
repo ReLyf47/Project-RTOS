@@ -45,6 +45,8 @@ void vDisplayTask(void *pvParameters) {
         if (xStatus == pdPASS) {
             // Debounce event tampilan: mencegah LCD berkedip terlalu cepat jika
             // beberapa event masuk hampir bersamaan.
+            TickType_t start = xTaskGetTickCount();
+            // Debounce: skip if event is too recent
             uint32_t current_time = millis();
             if (current_time - last_event_time < 100) {
                 continue;
@@ -97,6 +99,8 @@ void vDisplayTask(void *pvParameters) {
 
             // Update LCD dan Serial di satu critical section agar output event
             // tampil konsisten. Timeout pendek mencegah deadlock panjang.
+            // Update LCD with mutex protection
+            TickType_t end = xTaskGetTickCount();
             xSemaphoreTake(serialMutex, pdMS_TO_TICKS(100));
             
             lcd.clear();
