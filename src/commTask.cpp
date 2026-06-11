@@ -11,8 +11,10 @@ void vCommTask(void *pvParameters) {
     xSemaphoreGive(serialMutex);
 
     while (1) {
+        TickType_t start = xTaskGetTickCount();
         // ── WiFi health check ─────────────────────────────────────────────
         if (!isWiFiConnected()) {
+            TickType_t end = xTaskGetTickCount();
             xSemaphoreTake(serialMutex, pdMS_TO_TICKS(100));
             Serial.println("[Comm] WiFi lost — reconnecting...");
             xSemaphoreGive(serialMutex);

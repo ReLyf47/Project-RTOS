@@ -4,15 +4,15 @@
 #include <stdint.h>
 
 // ============ WIFI CONFIGURATION ============
-#define WIFI_SSID           "Jane Wifi"         // TODO: Update
-#define WIFI_PASSWORD       "jane116frozen"      // TODO: Update
+#define WIFI_SSID           "Redmi12"         // TODO: Update
+#define WIFI_PASSWORD       "jonathan07"      // TODO: Update
 #define WIFI_TIMEOUT_MS     10000
 
 // ============ XAMPP SERVER CONFIGURATION ============
 // Set this to your PC's local IP address (check via ipconfig / ifconfig)
-#define XAMPP_SERVER_IP     "192.168.101.74"   // TODO: Update to your PC's IP
+#define XAMPP_SERVER_IP     "10.46.30.245"   // TODO: Update to your PC's IP
 #define XAMPP_SERVER_PORT   80
-#define XAMPP_BASE_URL      "http://192.168.101.74/rfid"
+#define XAMPP_BASE_URL      "http://10.46.30.245/rfid"
 
 // ============ GPIO PIN DEFINITIONS ============
 #define BUZZER_PIN          14

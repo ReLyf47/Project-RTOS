@@ -14,6 +14,7 @@ void vSecurityTask(void *pvParameters) {
     xSemaphoreGive(serialMutex);
 
     while (1) {
+        TickType_t start = xTaskGetTickCount();
         uint32_t current_time = millis();
         int current_attempts = securityState.failed_attempts;
 
@@ -55,6 +56,7 @@ void vSecurityTask(void *pvParameters) {
                 if (current_time - last_log_time > 5000) {
                     last_log_time = current_time;
                     
+                    TickType_t end = xTaskGetTickCount();
                     xSemaphoreTake(serialMutex, pdMS_TO_TICKS(100));
                     Serial.printf("[Security] System locked - %lu ms remaining\n", 
                                   remaining_ms);

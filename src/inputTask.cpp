@@ -49,7 +49,7 @@ void vInputTask(void *pvParameters) {
             // Debounce
             static uint32_t last_scan_time = 0;
             uint32_t now = millis();
-            if (now - last_scan_time < 500) {
+            if (now - last_scan_time < 1500) {  // naikkan dari 500 → 1500ms
                 mfrc522.PICC_HaltA();
                 vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(INPUT_TASK_PERIOD));
                 continue;
